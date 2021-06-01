@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mycronjob
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: "Forbid"
+  jobTemplate:
+    spec:
+      parallelism: 1
+      template:
+        spec:
+          containers:
+          - name: mycontainer
+            image: joergfa/demo:0.0.1-SNAPSHOT
+            imagePullPolicy: Always
+            args: ["arg1", "arg2"]
+            env:
+            - name: TEST
+              value: "Hello from the environment"
+          restartPolicy: Never
+
+
+
